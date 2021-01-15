@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/meeting.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+        body {
+            background-color: rgb(19, 18, 18);
+        }
+    </style>
+    <title>Document</title>
+</head>
+
+<body>
+
+    <!-- <button class="w3-button w3-teal w3-xlarge w3-left" onclick="openLeftMenu()">&#9776;</button> -->
+    <div style="position: fixed;top: 0;right: 0;width: 250px;background-color: rgba(210, 210, 216, 0);height: 55px;display: block;z-index: 2;">
+        <div class="row">
+            <div class="col-md-8 column-1">
+                <div style="height: 100%;" class="row">
+                    <div class="btn-group" style="height: 100%;width: 100%;" role="group" aria-label="">
+                        <button type="button" class="btn btn-success"><i id="count_online" style="font-size: large;" class="far fa-user"> 25 </i></button>
+                        <button type="button" class="btn btn-primary"></button>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <button style="z-index: 550px;height: 100%;" class="btn btn-primary" onclick="openRightMenu()"><i class="far fa-comment-dots"></i><span class="badge badge-light">7</span></button>
+            </div>
+        </div>
+        
+    </div>
+    <canvas id="canvas" width="500" height="500"></canvas>
+    <div style="width: 18%;right: 0;top: 0;display: none;position: relative;z-index: 20px;padding-top: 20px;" class="w3-sidebar w3-bar-block w3-card w3-animate-right" 
+    style="display:none;right:0;" id="rightMenu">
+        <!-- <button onclick="closeRightMenu()" class="w3-bar-item w3-button w3-large">Close &times;</button> -->
+        <div id="mess" style="padding: 20px;font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">
+            <p><Strong>nhan</Strong> 09:13 <br> hello</p>
+        </div>
+        <div id="input-mess" style="position: absolute; width: 100%;height: 80px;margin: 0;bottom: 5px;border-top: 1px solid black;padding-top: 20px;" class="row">
+            <div class="col-md-10">
+                <input id="ipmess" type="text"
+                class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
+            </div>
+
+            <div class="col-md-2" style="padding: 0px;">
+                <button type="button" onclick="senMessage()" class="btn btn-primary"><i class="fas fa-paper-plane"></i></button>
+            </div>
+            
+        </div>
+    </div>
+    <div style="margin-top: 0px;margin-left: -1px;margin-right: -1px;" id="videos" class="row">
+        <div id="ctnVlocal" class="col-md-1">
+            <video id="localVideo" class="vid" autoplay muted></video>
+        </div>
+    </div>
+
+    <div style="margin: 20px;" class="row">
+        <div style="margin:0px;background-color: rgb(190, 190, 202);padding: 0px;" class="col-md-12">
+            <button type="button" onclick="ShareScreen()" class="btn btn-primary">shareScreen</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div style="height: 650px;margin: auto;" class="col-md-10 column-1">
+            <video id="mainvideo" class="vid" autoplay muted></video>
+        </div>
+    </div>
+
+    <div class="row" style="position: fixed;bottom: 0;left: 0;background-color: white;width: 100%;height: 100px;margin: 0;">
+        <div class="col-md-12 column-1 col-md-offset-2" style="align-items: center;text-align: center;padding-top: 15px;padding-bottom: 15px;">
+            <button style="margin: auto;height: 100%;width: 8%;font-size: 25px;color: brown;" type="button" class="btn btn-light"><i class="fas fa-microphone-slash"></i></button>
+            <button style="margin: auto;height: 100%;width: 8%;font-size: 25px;color: brown;" type="button" class="btn btn-light"><i class="fas fa-phone-slash"></i></button>
+            <button style="margin: auto;height: 100%;width: 8%;font-size: 25px;color: brown;" type="button" class="btn btn-light"><i class="fas fa-video-slash"></i></button>
+        </div>
+    </div>
+    
+
+</body>
+<footer>
+  
+
+</footer>
+<script>
+    const ROOM_ID = "<%= roomId %>"
+    isClose = true
+    function openLeftMenu() {
+        (isClose) ? document.getElementById("leftMenu").style.display = "block" : document.getElementById("leftMenu").style.display = "none";
+    }
+
+    function closeLeftMenu() {
+        document.getElementById("leftMenu").style.display = "none";
+    }
+
+    function openRightMenu() {
+        if(isClose){
+            document.getElementById("rightMenu").style.display = "block";
+            isClose=false
+        }
+        else{
+            document.getElementById("rightMenu").style.display = "none";
+            isClose=true
+        }
+        
+    }
+
+    function closeRightMenu() {
+        document.getElementById("rightMenu").style.display = "none";
+        isClose = true
+    }
+    async function capture() {
+		var context = canvas.getContext('2d');
+		var w, h, ratio;
+      ratio = mainvideo.videoWidth / mainvideo.videoHeight;
+
+      // w = video.videoWidth - 100;
+      w=500
+      // h= 500
+      h = parseInt(w / ratio, 10);
+
+      canvas.width = w;
+			canvas.height = h;			
+			context.fillRect(0, 0, w, h);
+			context.drawImage(mainvideo, 0, 0, w, h);
+		// }
+  };
+
+</script>
+<script lang="text/javascript" src="/socket.io/socket.io.js"></script>
+<script src="/simple-peer/simplepeer.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src='/js/script.js' lang="text/javascript"></script>
+
+</html>
