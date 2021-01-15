@@ -361,7 +361,7 @@ io.on("connection", function (socket) {
       if (item.name == data.gId) {
         for (let id in item.gpeers) {
           if (id == socket.id) continue
-          // console.log(data)
+          
           item.gpeers[id].emit('sendImg', data)
         }
       }

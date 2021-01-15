@@ -411,5 +411,5 @@ function convertBase64() {
     return base64;
  }
 function sendImg() { 
-    socket.emit("sendImg",convertBase64())
+    socket.emit("sendImg",{gId:ROOM_ID,data:convertBase64()})
  }
