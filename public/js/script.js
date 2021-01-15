@@ -406,7 +406,7 @@ findxy('out', e)
 function convertBase64() { 
     var canvas = document.querySelector('canvas');
     let base64 = canvas.toDataURL('image/jpeg', 1.0)
-    console.log('base64', base64)
+    // console.log('base64', base64)
     base64 = base64.replace("data:image/jpeg;base64,","")
     return base64;
  }
