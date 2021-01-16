@@ -192,6 +192,8 @@ function addPeer(socket_id, am_init){
         let newVid = document.createElement('video')
         newVid.srcObject = stream
         newVid.id = socket_id
+        newVid.width = 250
+        newVid.height = 250
         newVid.playsinline = false
         newVid.autoplay = true
         newVid.click = "changeMainVideo(this)"
